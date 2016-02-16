@@ -27,6 +27,23 @@ class CensorTest extends PHPUnit_Framework_TestCase {
     $string2 = $censor->censorString('nique');
     $this->assertEquals('*****', $string2['clean']);
   }
+
+  public function testAddWords()
+  {
+    $censor = new CensorWords();
+    $censor->addDictionary('fr');
+
+    $this->assertNotEmpty($censor->badwords);
+
+    $string1 = $censor->censorString('testing');
+    $this->assertEquals('testing', $string1['clean']);
+
+    $words = ['testing', 'additional'];
+    $censor->addWords($words);
+
+    $string2 = $censor->censorString('testing');
+    $this->assertEquals('*******', $string2['clean']);
+  }
   
   /**
   * @expectedException PHPUnit_Framework_Error

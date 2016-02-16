@@ -43,7 +43,21 @@ class CensorWords
 	 */
 	public function addDictionary($dictionary) {
 
-		$this->badwords = array_merge($this->badwords, $this->readBadWords($dictionary));
+		$this->addWords($this->readBadWords($dictionary));
+
+	}
+
+	/**
+	 *  Add a list of additional words to current bad words list
+	 *  This accepts an array of words
+	 *
+	 *  @param		array
+	 *  string
+	 */
+	public function addWords($words) {
+
+		$this->badwords = array_merge($this->badwords, $words);
+		$this->censorChecks = null;
 	}
 
 	/**
